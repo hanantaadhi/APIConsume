@@ -1,0 +1,50 @@
+﻿@model IEnumerable<User>
+@{ Layout = "_Layout"; ViewBag.Title = "All Reservations";}
+
+<h2>All Reservations</h2>
+<a asp-action="AddReservation" class="btn btn-sm btn-primary">Add Reservation</a>
+<a asp-action="GetReservation" class="btn btn-sm btn-secondary">Get Reservation</a>
+<a asp-action="AddFile" class="btn btn-sm btn-secondary">Add File</a>
+
+<table class="table table-sm table-striped table-bordered m-2">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NIK</th>
+            <th>Name</th>
+            <th>Maiden Name</th>
+            <th>Birth Date</th>
+            <th>Gender</th>
+            <th>Religion</th>
+            <th>Marital Status</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.m_dukcapil_data_id</td>
+                <td>@r.NIK</td>
+                <td>@r.name</td>
+                <td>@r.maiden_name</td>
+                <td>@r.birth_date</td>
+                <td>@r.gender</td>
+                <td>@r.religion_id</td>
+                <td>@r.marital_status_id</td>
+                <td>
+                    <a asp-action="UpdateReservationPatch" asp-route-id="@r.m_dukcapil_data_id">
+                        <img src="/icon/edit.png" />
+                    </a>
+                </td>
+                <td>
+                    <form asp-action="DeleteReservation" method="post">
+                        <input type="hidden" value="@r.marital_status_id" name="ReservationId" />
+                        <input type="image" src="/icon/close.png" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
